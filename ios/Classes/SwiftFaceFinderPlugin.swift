@@ -2,7 +2,7 @@ import Flutter
 import UIKit
 import ARKit
 import Vision
-
+import Alamofire
 
 public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
 
@@ -99,7 +99,7 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
                         
                         self.scannedFaceViews.append(faceView)
                         
-                        //self.takePhoto(bounds: face.boundingBox);
+                        self.takePhoto(bounds: face.boundingBox);
                     }
                     
                     if(faces.count > 0)
@@ -125,5 +125,30 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
         return CGRect(origin: origin, size: size)
     }
     
+    private func takePhoto(bounds: CGRect) {
+        
+        print("Taking photo");
+        
+        let headers : HTTPHeaders = [
+            "Content-Type" : "image/jpeg"
+        ]
+        
+        var imageUI = sceneView!.snapshot();
+        
+        //let imageCropped: CGImage = imageUI.cgImage!.cropping(to: bounds)!
+        
+        //imageUI = UIImage(cgImage: imageCropped);
+        
+        let resizedImage = imageUI.resized(toWidth: 500);
+        
+        let imageData = UIImageJPEGRepresentation(resizedImage!, 90);
+        if(imageData != nil)
+        {
+            Alamofire.upload(imageData!, to: "https://2l6putdvoi.execute-api.us-east-1.amazonaws.com/dev/upload/iosapp",  headers:headers).responseJSON { response in
+                debugPrint(response)
+            }
+            
+        }
+    }
     
 }
