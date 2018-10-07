@@ -12,7 +12,13 @@ class FaceFinder {
   }
 
   static Future<int> get cameraViewer async {
-    final int textureId = await _channel.invokeMethod('getCameraViewer');
+
+    final Map<String, dynamic> params = <String, dynamic>{
+      'position': [0, 0, 300, 300],
+      'url': "https://2l6putdvoi.execute-api.us-east-1.amazonaws.com/dev/upload/iosapp"
+    };
+
+    final int textureId = await _channel.invokeMethod('getCameraViewer', params);
     return textureId;
   }
 }

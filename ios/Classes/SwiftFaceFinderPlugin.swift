@@ -18,6 +18,8 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
     
     private var scanTimer: Timer?
     
+    private var post_url : String?;
+    
     private var scannedFaceViews = [UIView]()
     
     //get the orientation of the image that correspond's to the current device orientation
@@ -48,9 +50,13 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
     }
     else if(call.method == "getCameraViewer")
     {
+        let args = call.arguments as! NSDictionary;
+        let position : Array<Int> = args["position"] as! Array<Int>
+        post_url = args["url"] as! String;
+        
         if #available(iOS 11.0, *) {
             
-            sceneView = ARSCNView(frame: CGRect(x: 0, y: 0, width: 200, height: 200));
+            sceneView = ARSCNView(frame: CGRect(x: position[0], y: position[1], width: position[2], height: position[3]));
             
             let configuration = ARFaceTrackingConfiguration()
             sceneView!.session.run(configuration)
@@ -144,7 +150,7 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
         let imageData = UIImageJPEGRepresentation(resizedImage!, 90);
         if(imageData != nil)
         {
-            Alamofire.upload(imageData!, to: "https://2l6putdvoi.execute-api.us-east-1.amazonaws.com/dev/upload/iosapp",  headers:headers).responseJSON { response in
+            Alamofire.upload(imageData!, to: self.post_url!,  headers:headers).responseJSON { response in
                 debugPrint(response)
             }
             
