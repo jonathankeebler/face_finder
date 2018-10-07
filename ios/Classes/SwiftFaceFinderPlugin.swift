@@ -98,8 +98,10 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
                 if let faces = request.results as? [VNFaceObservation] {
                     for face in faces {
                         let faceView = UIView(frame: self.faceFrame(from: face.boundingBox))
+                        faceView.layer.borderColor = UIColor.black.cgColor;
+                        faceView.layer.borderWidth = 3.0
                         
-                        faceView.backgroundColor = .red
+                        //faceView.backgroundColor = .red
                         
                         self.sceneView!.addSubview(faceView)
                         
