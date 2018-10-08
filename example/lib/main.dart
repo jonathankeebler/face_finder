@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    await FaceFinder.cameraViewer;
+    await FaceFinder.cameraViewer([0, 0, 0, 0], "https://requestbin.fullcontact.com/1f0qm7z1");
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling

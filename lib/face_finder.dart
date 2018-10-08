@@ -11,14 +11,13 @@ class FaceFinder {
     return version;
   }
 
-  static Future<int> get cameraViewer async {
+  static Future<int> cameraViewer(List position, String url) async {
 
     final Map<String, dynamic> params = <String, dynamic>{
-      'position': [0, 0, 0, 0],
-      'url': "https://requestbin.fullcontact.com/1f0qm7z1"
+      'position': position,
+      'url': url
     };
 
-    final int textureId = await _channel.invokeMethod('getCameraViewer', params);
-    return textureId;
+    await _channel.invokeMethod('getCameraViewer', params);
   }
 }
