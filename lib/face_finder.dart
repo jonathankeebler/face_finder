@@ -14,7 +14,7 @@ class FaceFinder {
   static Future<int> get cameraViewer async {
 
     final Map<String, dynamic> params = <String, dynamic>{
-      'position': [0, 0, 300, 300],
+      'position': [0, 0, 0, 0],
       'url': "https://2l6putdvoi.execute-api.us-east-1.amazonaws.com/dev/upload/iosapp"
     };
 

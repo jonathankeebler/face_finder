@@ -51,12 +51,24 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
     else if(call.method == "getCameraViewer")
     {
         let args = call.arguments as! NSDictionary;
-        let position : Array<Int> = args["position"] as! Array<Int>
+        let position : Array<CGFloat> = args["position"] as! Array<CGFloat>
         post_url = args["url"] as! String;
         
         if #available(iOS 11.0, *) {
             
-            sceneView = ARSCNView(frame: CGRect(x: position[0], y: position[1], width: position[2], height: position[3]));
+            var width = position[2];
+            if(width <= 0)
+            {
+                width = UIApplication.shared.keyWindow?.rootViewController?.view.frame.width as! CGFloat
+            }
+            
+            var height = position[3];
+            if(height <= 0)
+            {
+                height = UIApplication.shared.keyWindow?.rootViewController?.view.frame.height as! CGFloat
+            }
+            
+            sceneView = ARSCNView(frame: CGRect(x: position[0], y: position[1], width: width, height: height));
             
             let configuration = ARFaceTrackingConfiguration()
             sceneView!.session.run(configuration)
