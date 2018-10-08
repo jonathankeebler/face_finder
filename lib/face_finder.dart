@@ -15,7 +15,7 @@ class FaceFinder {
 
     final Map<String, dynamic> params = <String, dynamic>{
       'position': [0, 0, 0, 0],
-      'url': "https://2l6putdvoi.execute-api.us-east-1.amazonaws.com/dev/upload/iosapp"
+      'url': "https://requestbin.fullcontact.com/1f0qm7z1"
     };
 
     final int textureId = await _channel.invokeMethod('getCameraViewer', params);

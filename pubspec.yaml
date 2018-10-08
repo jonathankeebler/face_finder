@@ -1,8 +1,8 @@
 name: face_finder
 description: Find faces in a live view
 version: 0.0.1
-author: Jonathan Keebler
-homepage:
+author: Jonathan Keebler <jonathan@keebler.net>
+homepage: https://github.com/jonathankeebler/face_finder
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
