@@ -70,7 +70,7 @@ public class SwiftFaceFinderPlugin: NSObject, FlutterPlugin {
             
             sceneView = ARSCNView(frame: CGRect(x: position[0], y: position[1], width: width, height: height));
             
-            let configuration = ARFaceTrackingConfiguration()
+            let configuration = ARFaceTrackingConfiguration.isSupported ? ARFaceTrackingConfiguration() : ARWorldTrackingConfiguration();
             sceneView!.session.run(configuration)
             
             UIApplication.shared.keyWindow?.addSubview(sceneView!);
